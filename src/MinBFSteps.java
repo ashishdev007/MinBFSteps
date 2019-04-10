@@ -22,6 +22,7 @@ public class MinBFSteps {
 
         while (!flag){
             tokens = pile.remove();
+            System.out.println(tokens);
 
             if (tokens == 1)
                 break;
