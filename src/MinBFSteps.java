@@ -8,6 +8,7 @@ public class MinBFSteps {
     private Queue<Integer> pile;
     private HashSet<Integer> considered;
     private HashMap<Integer, Integer> values;
+    private String track;
     private int tokens;
     private int minSteps;
     private int nodeCount;
@@ -20,10 +21,12 @@ public class MinBFSteps {
         minSteps = 0;
         nodeCount = 0;
         bfsearch();
+        getMoves();
     }
 
     private void bfsearch(){
 
+        int tokens = this.tokens;
         pile.add(tokens);
         boolean flag = false;
 
@@ -37,9 +40,9 @@ public class MinBFSteps {
 
             if (!considered.contains(tokens)) {
                 adder(tokens);
+                minSteps++;
             }
 
-            minSteps++;
 
             considered.add(tokens);
         }
@@ -65,17 +68,22 @@ public class MinBFSteps {
     }
 
     public String getBFMoves(){
-        StringBuilder sb = new StringBuilder();
+        return track;
+    }
+
+    private void getMoves(){
+        String sb = "";
 
         int token = 1;
 
         while (token != this.tokens){
-            sb.append(token + " <-- ");
+            sb = (" --> " + token) + sb;
+            token = values.get(token);
         }
 
-        sb.append(tokens);
+        sb = token + sb;
 
-        return sb.reverse().toString();
+        track = sb;
     }
 
 
