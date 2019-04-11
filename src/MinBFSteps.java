@@ -86,6 +86,14 @@ public class MinBFSteps {
         track = sb;
     }
 
+    private int solutionNodes(){
+        return nodeCount;
+    }
+
+    private int solutionSteps(){
+        return minSteps;
+    }
+
 
 
 }
