@@ -29,7 +29,6 @@ public class MinBFSteps {
 
         while (!flag){
             tokens = pile.remove();
-            System.out.println(tokens);
 
             if (tokens == 1) {
                 minSteps++;
@@ -63,6 +62,20 @@ public class MinBFSteps {
         pile.add(tokens - 1);
         values.put(tokens - 1, tokens);
         nodeCount++;
+    }
+
+    public String getBFMoves(){
+        StringBuilder sb = new StringBuilder();
+
+        int token = 1;
+
+        while (token != this.tokens){
+            sb.append(token + " <-- ");
+        }
+
+        sb.append(tokens);
+
+        return sb.reverse().toString();
     }
 
 
