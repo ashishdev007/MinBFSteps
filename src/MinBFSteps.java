@@ -18,10 +18,9 @@ public class MinBFSteps {
         pile = new LinkedList<>();
         considered = new HashSet<>();
         values = new HashMap<>();
-        minSteps = 0;
         nodeCount = 0;
         bfsearch();
-        getMoves();
+        calMoves();
     }
 
     private void bfsearch(){
@@ -34,50 +33,52 @@ public class MinBFSteps {
             tokens = pile.remove();
 
             if (tokens == 1) {
-                minSteps++;
+                nodeCount++;
                 break;
             }
 
             if (!considered.contains(tokens)) {
                 adder(tokens);
-                minSteps++;
             }
 
 
             considered.add(tokens);
+            nodeCount++;
         }
-        System.out.println("Min " + minSteps);
     }
 
     private void adder(int tokens){
 
-        if ((tokens % 2) == 0){
+        if ((tokens % 2) == 0 && !considered.contains(tokens/2)){
             pile.add(tokens/2);
-            values.put(tokens/2, tokens);
-            nodeCount++;
-        }
-        if ((tokens % 3) == 0){
-            pile.add(tokens/3);
-            values.put(tokens/3, tokens);
-            nodeCount++;
+            values.putIfAbsent(tokens/2, tokens);
         }
 
-        pile.add(tokens - 1);
-        values.put(tokens - 1, tokens);
-        nodeCount++;
+        if ((tokens % 3) == 0 && !considered.contains(tokens/3)){
+            pile.add(tokens/3);
+            values.putIfAbsent(tokens/3, tokens);
+        }
+
+        if (!considered.contains(tokens - 1)){
+            pile.add(tokens - 1);
+            values.putIfAbsent(tokens - 1, tokens);
+        }
+
     }
 
     public String getBFMoves(){
         return track;
     }
 
-    private void getMoves(){
+    private void calMoves(){
         String sb = "";
 
+        minSteps = 1;
         int token = 1;
 
         while (token != this.tokens){
             sb = (" --> " + token) + sb;
+            minSteps++;
             token = values.get(token);
         }
 
@@ -86,14 +87,12 @@ public class MinBFSteps {
         track = sb;
     }
 
-    private int solutionNodes(){
+    public int solutionNodes(){
         return nodeCount;
     }
 
-    private int solutionSteps(){
+    public int solutionSteps(){
         return minSteps;
     }
-
-
 
 }
