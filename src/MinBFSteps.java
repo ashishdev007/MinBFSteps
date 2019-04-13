@@ -27,9 +27,8 @@ public class MinBFSteps {
 
         int tokens = this.tokens;
         pile.add(tokens);
-        boolean flag = false;
 
-        while (!flag){
+        while (true){
             tokens = pile.remove();
 
             if (tokens == 1) {
