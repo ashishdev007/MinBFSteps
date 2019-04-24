@@ -11,14 +11,12 @@ public class MinBFSteps {
     private String track;
     private int tokens;
     private int minSteps;
-    private int nodeCount;
 
     public MinBFSteps(int tokens){
         this.tokens = tokens;
         pile = new LinkedList<>();
         considered = new HashSet<>();
         values = new HashMap<>();
-        nodeCount = 0;
         bfsearch();
         calMoves();
     }
@@ -32,7 +30,6 @@ public class MinBFSteps {
             tokens = pile.remove();
 
             if (tokens == 1) {
-                nodeCount++;
                 break;
             }
 
@@ -40,22 +37,20 @@ public class MinBFSteps {
                 adder(tokens);
             }
 
-
             considered.add(tokens);
-            nodeCount++;
         }
     }
 
     private void adder(int tokens){
 
-        if ((tokens % 2) == 0 && !considered.contains(tokens/2)){
-            pile.add(tokens/2);
-            values.putIfAbsent(tokens/2, tokens);
-        }
-
         if ((tokens % 3) == 0 && !considered.contains(tokens/3)){
             pile.add(tokens/3);
             values.putIfAbsent(tokens/3, tokens);
+        }
+
+        if ((tokens % 2) == 0 && !considered.contains(tokens/2)){
+            pile.add(tokens/2);
+            values.putIfAbsent(tokens/2, tokens);
         }
 
         if (!considered.contains(tokens - 1)){
