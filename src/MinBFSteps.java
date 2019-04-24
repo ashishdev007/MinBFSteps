@@ -87,11 +87,11 @@ public class MinBFSteps {
     }
 
     public int solutionNodes(){
-        return nodeCount;
+        return considered.size() + 1;
     }
 
     public int solutionSteps(){
-        return minSteps;
+        return minSteps - 1;
     }
 
 }
